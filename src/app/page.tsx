@@ -1,6 +1,5 @@
 import { MovieCard } from "@/components/MovieCard";
 import { Movie } from "@/interfaces/movies";
-import Image from "next/image";
 
 const getMovies = async () => {
   const movies = await fetch("https://api.themoviedb.org/3/trending/movie/day?language=en-US", {
@@ -19,7 +18,6 @@ const getMovies = async () => {
 export default async function Home() {
   const movies = await getMovies().then((movie) => movie.results);
 
-  console.log(movies);
   return (
     <main className="max-w-7xl mx-auto">
       <h1 className="mt-10 text-5xl font-bold text-center">Trending Movies</h1>
