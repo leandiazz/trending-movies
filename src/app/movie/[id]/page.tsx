@@ -5,12 +5,12 @@ import type { Metadata } from "next";
 
 function getMovie(id: string): Promise<MovieDetail> {
   const movie = fetch(`https://api.themoviedb.org/3/movie/${id}`, {
+    next: { revalidate: 86400 },
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTY0YzEwZjQzZGY2YTU3OTc1NWZhZTAzNWNlMmFjYSIsIm5iZiI6MTcxOTI5NTg3Ni40NTQyNjgsInN1YiI6IjY2N2E1ZWNmNGM1M2RjNDk1OTA3ODRiNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BP1IiO59r2hyBjTmT-LTWiHBf2FGLmA4KK_bYrUYWMI",
-    },
+      Authorization: `Bearer ${process.env.API_KEY}`
+    }
   })
     .then((response) => response.json())
     .catch((err) => console.error(err));
@@ -24,15 +24,17 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 
 export async function generateStaticParams() {
   const movies: Movie[] = await fetch("https://api.themoviedb.org/3/trending/movie/day?language=en-US", {
+    next: { revalidate: 86400 },
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTY0YzEwZjQzZGY2YTU3OTc1NWZhZTAzNWNlMmFjYSIsIm5iZiI6MTcxOTI5NTg3Ni40NTQyNjgsInN1YiI6IjY2N2E1ZWNmNGM1M2RjNDk1OTA3ODRiNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BP1IiO59r2hyBjTmT-LTWiHBf2FGLmA4KK_bYrUYWMI",
-    },
-  }).then((res) => res.json()).then(res => res.results);
+      Authorization: `Bearer ${process.env.API_KEY}`
+    }
+  })
+    .then((res) => res.json())
+    .then((res) => res.results);
 
-  return movies.map(movie => movie.id);
+  return movies.map((movie) => movie.id);
 }
 
 export default async function MoviePage({ params }: { params: { id: string } }) {

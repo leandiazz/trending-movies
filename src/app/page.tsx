@@ -3,12 +3,12 @@ import { Movie } from "@/interfaces/movies";
 
 const getMovies = async () => {
   const movies = await fetch("https://api.themoviedb.org/3/trending/movie/day?language=en-US", {
+    next: { revalidate: 86400 },
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTY0YzEwZjQzZGY2YTU3OTc1NWZhZTAzNWNlMmFjYSIsIm5iZiI6MTcxOTI5NTg3Ni40NTQyNjgsInN1YiI6IjY2N2E1ZWNmNGM1M2RjNDk1OTA3ODRiNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.BP1IiO59r2hyBjTmT-LTWiHBf2FGLmA4KK_bYrUYWMI",
-    },
+      Authorization: `Bearer ${process.env.API_KEY}`
+    }
   })
     .then((response) => response.json())
     .catch((err) => console.error(err));
