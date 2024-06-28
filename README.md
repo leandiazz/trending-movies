@@ -1,5 +1,5 @@
 
-![trending-movies](https://github.com/leandiazz/trending-movies/assets/129317665/3a9f0a17-20da-4d4a-b52c-ce60736e17e7)
+![trending-movies](https://github.com/leandiazz/trending-movies/assets/129317665/74cedb52-74d9-4b94-8c6e-f65fe342b1ae)
 
 This project showcases a movie app designed to demonstrate the capabilities and use cases of the View Transitions API.
 
